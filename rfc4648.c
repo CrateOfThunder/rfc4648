@@ -91,6 +91,7 @@ const char *radstr;
 {
 #define HI4 ((rb[i] & 0xF0) >> 4)
 #define LO4 ((rb[i] & 0x0F))
+
   while ((n = fread(rb, 1, 16384, ifile)) > 0) {
     for (i = 0, j = 0; i < n; i++, j += 2) {
       eb[j + 0] = radstr[HI4];
@@ -111,8 +112,10 @@ rfc4648_b16dec(ifile, ofile, radstr)
   const char *radstr;
 {
   init_lut(16, radstr);
+
 #define BYTE1NYBBLE ((eb[j + 0] & 0x0F) << 4)
 #define BYTE2NYBBLE (eb[j + 1] & 0x0F)
+
   while ((n = fread(eb, 1, 32768, ifile)) > 0) {
     for (i = 0; i < n; i++)
       eb[i] = lut[eb[i]];
@@ -174,6 +177,7 @@ rfc4648_b32dec(ifile, ofile, radstr)
   const char *radstr;
 {
   init_lut(32, radstr);
+
 #define BYTE1LO5 (eb[j] << 3)
 #define BYTE2HI3 (eb[j + 1] >> 2)
 #define BYTE2LO2 (eb[j + 1] << 6)
@@ -243,6 +247,7 @@ rfc4648_b64dec(ifile, ofile, radstr)
   const char *radstr;
 {
   init_lut(64, radstr);
+
 #define BYTE1LO6 (eb[j] << 2)
 #define BYTE2HI2 (eb[j + 1] >> 4)
 #define BYTE2LO4 (eb[j + 1] << 4)
