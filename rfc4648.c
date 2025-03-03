@@ -147,6 +147,7 @@ rfc4648_b32enc(ifile, ofile, radstr)
 #define LO2BYTE4 ((rb[i + 3] & 3) << 3)
 #define HI3BYTE5 ((i + 4 < n) ? (rb[i + 4] >> 5) : 0)
 #define LO5BYTE5 (rb[i + 4] & 31)
+
   while ((n = fread(rb, 1, 32765, ifile)) > 0) {
     for (i = 0, j = 0; i < n; i += 5, j += 8) {
       eb[j + 0] = set(i, 0, n, HI5BYTE1,        0, radstr);
@@ -185,6 +186,7 @@ rfc4648_b32dec(ifile, ofile, radstr)
 #define BYTE7HI2 (eb[j + 6] >> 3)
 #define BYTE7LO3 (eb[j + 6] << 5)
 #define BYTE8LO5 (eb[j + 7])
+
   while ((n = fread(eb, 1, 32768, ifile)) > 0) {
     for (i = 0; (i < n) && (eb[i] != '='); i++)
       eb[i] = lut[eb[i]];
