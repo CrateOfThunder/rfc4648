@@ -28,7 +28,7 @@
 /* ----------------------------------------------------------------------- */
 /* RFC 4648 Base16, Base32 and Base64                                      */
 /*             rfc4648.c -- syllogistic xcoding implementation             */
-/* Ver. 1.00                    28SEP2024                   CrateOfThunder */
+/* Ver. 1.01                    28SEP2024                   CrateOfThunder */
 /* ----------------------------------------------------------------------- */
 
 /*
@@ -151,7 +151,7 @@ rfc4648_b32enc(ifile, ofile, radstr)
 #define HI3BYTE5 ((i + 4 < n) ? (rb[i + 4] >> 5) : 0)
 #define LO5BYTE5 (rb[i + 4] & 31)
 
-  while ((n = fread(rb, 1, 32765, ifile)) > 0) {
+  while ((n = fread(rb, 1, 20480, ifile)) > 0) {
     for (i = 0, j = 0; i < n; i += 5, j += 8) {
       eb[j + 0] = set(i, 0, n, HI5BYTE1,        0, radstr);
       eb[j + 1] = set(i, 0, n, LO3BYTE1, HI2BYTE2, radstr);
@@ -225,7 +225,7 @@ rfc4648_b64enc(ifile, ofile, radstr)
 #define HI2BYTE3 ((i + 2 < n) ? (rb[i + 2] >> 6) : 0)
 #define LO6BYTE3 (rb[i + 2] & 0x3F)
 
-  while ((n = fread(rb, 1, 32766, ifile)) > 0) {
+  while ((n = fread(rb, 1, 24576, ifile)) > 0) {
     for (i = 0, j = 0; i < n; i += 3, j += 4) {
       eb[j + 0] = set(i, 0, n, HI6BYTE1,        0, radstr);
       eb[j + 1] = set(i, 0, n, LO2BYTE1, HI4BYTE2, radstr);
